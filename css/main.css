@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold tracking-tight;
+    }
+}
+
+/* Custom components */
+@layer components {
+    .text-gradient {
+        @apply bg-gradient-to-r from-sl-green to-green-500 bg-clip-text text-transparent;
+    }
+
+    .glass-effect {
+        @apply bg-opacity-10 backdrop-blur-md border border-white/10;
+    }
+
+    .button-primary {
+        @apply bg-sl-green text-white px-6 py-2 rounded-lg 
+               hover:bg-green-700 transition-all duration-300 
+               transform hover:-translate-y-1 hover:shadow-lg;
+    }
+
+    .card-base {
+        @apply bg-white rounded-lg shadow-lg overflow-hidden 
+               transform transition-all duration-300 
+               hover:-translate-y-2 hover:shadow-xl;
+    }
+
+    .nav-link {
+        @apply relative inline-block transition-colors duration-300;
+    }
+
+    .nav-link::after {
+        @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 
+               bg-current transition-all duration-300;
+    }
+
+    .nav-link:hover::after {
+        @apply w-full;
+    }
+}
+
+/* Custom utilities */
+@layer utilities {
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-shadow-lg {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .transition-transform-gpu {
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+.scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design Helpers */
+.mobile-only {
+    @apply block md:hidden;
+}
+
+.desktop-only {
+    @apply hidden md:block;
+}
+
+/* Loading States */
+.loading {
+    @apply relative pointer-events-none opacity-75;
+}
+
+.loading::after {
+    content: '';
+    @apply absolute inset-0 bg-white bg-opacity-50;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-sl-green rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-green-700;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+}

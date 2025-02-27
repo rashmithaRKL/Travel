@@ -4,26 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Gallery - Sri Lanka Travel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'sl-green': '#2E8B57',
-                        'sl-light': '#F5F5F5',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzJFOEI1NyIgZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLS41IDEzLjVjLS44MjggMC0xLjUtLjY3Mi0xLjUtMS41czAtMyAuNS00YzEtMiAyLTMgMy00IC41LS41IDEuNS0xIDIuNS0xIC41IDAgMSAuMiAxLjUuNS0xIDEtMiAyLTIuNSAzLS41IDEtLjc1IDItLjc1IDMgMCAuODI4LS42NzIgMS41LTEuNSAxLjVoLTJ6Ii8+PC9zdmc+" />
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
         .gallery-item {
-            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
-        .gallery-item:hover {
-            transform: scale(1.02);
+
+        .gallery-item img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .gallery-item:hover img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.5) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -31,9 +58,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+
+        .modal.active {
+            opacity: 1;
+        }
+
         .modal-content {
             max-width: 90%;
             max-height: 90%;
@@ -42,7 +76,85 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+        }
+
+        .modal.active .modal-content {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .filter-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #2E8B57;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .filter-button:hover::after {
+            transform: scaleX(1);
+        }
+
+        .filter-button.active::after {
+            transform: scaleX(1);
+        }
+
+        .image-loading {
+            position: relative;
+        }
+
+        .image-loading::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(46, 139, 87, 0.1),
+                rgba(46, 139, 87, 0.2),
+                rgba(46, 139, 87, 0.1)
+            );
+            animation: shimmer 1.5s infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
     </style>
 </head>

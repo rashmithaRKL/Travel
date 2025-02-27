@@ -4,20 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discover Sri Lanka - Your Ultimate Travel Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzJFOEI1NyIgZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLS41IDEzLjVjLS44MjggMC0xLjUtLjY3Mi0xLjUtMS41czAtMyAuNS00YzEtMiAyLTMgMy00IC41LS41IDEuNS0xIDIuNS0xIC41IDAgMSAuMiAxLjUuNS0xIDEtMiAyLTIuNSAzLS41IDEtLjc1IDItLjc1IDMgMCAuODI4LS42NzIgMS41LTEuNSAxLjVoLTJ6Ii8+PC9zdmc+" />
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/animations.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'sl-green': '#2E8B57',
-                        'sl-light': '#F5F5F5',
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         .hero-canvas {
             position: absolute;
@@ -27,27 +19,86 @@
             height: 100%;
             z-index: -1;
         }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(45deg, #2E8B57, #4CAF50);
+            padding: 3px;
+            border-radius: 0.5rem;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.5rem;
+            padding: 3px;
+            background: linear-gradient(45deg, #2E8B57, #4CAF50);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
     </style>
 </head>
 <body class="bg-white">
     <!-- Navigation -->
-    <nav class="bg-sl-green fixed w-full z-50">
+    <nav class="bg-sl-green fixed w-full z-50 glass-effect">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <span class="text-white text-xl font-bold">Sri Lanka Travel</span>
+                        <span class="text-white text-xl font-bold text-gradient">Sri Lanka Travel</span>
                     </div>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="index.html" class="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="about.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
-                        <a href="locations.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
-                        <a href="price.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
-                        <a href="gallery.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
-                        <a href="contact.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                        <a href="index.html" class="text-white nav-link px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-white nav-link hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="locations.html" class="text-white nav-link hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
+                        <a href="price.html" class="text-white nav-link hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                        <a href="gallery.html" class="text-white nav-link hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
+                        <a href="contact.html" class="text-white nav-link hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
                     </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-white hover:text-gray-300 focus:outline-none" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div class="hidden md:hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="about.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="locations.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Locations</a>
+                    <a href="price.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Pricing</a>
+                    <a href="gallery.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Gallery</a>
+                    <a href="contact.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
                 </div>
             </div>
         </div>
@@ -58,9 +109,9 @@
         <canvas id="hero-canvas" class="hero-canvas"></canvas>
         <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div class="text-center">
-                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Discover Sri Lanka</h1>
-                <p class="text-xl md:text-2xl text-white mb-8">Experience the Pearl of the Indian Ocean</p>
-                <a href="locations.html" class="bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 text-shadow animate-fade-slide-up">Discover Sri Lanka</h1>
+                <p class="text-xl md:text-2xl text-white mb-8 animate-fade-slide-up stagger-1">Experience the Pearl of the Indian Ocean</p>
+                <a href="locations.html" class="button-glow bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300 animate-fade-slide-up stagger-2">
                     Explore Destinations
                 </a>
             </div>
@@ -69,22 +120,41 @@
 
     <!-- Featured Sections -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="text-3xl font-bold text-center mb-12">Why Visit Sri Lanka?</h2>
+        <h2 class="text-3xl font-bold text-center mb-12 text-gradient">Why Visit Sri Lanka?</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Culture -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold mb-4">Rich Culture</h3>
-                <p class="text-gray-600">Discover ancient temples, traditional festivals, and vibrant local customs.</p>
+            <div class="gradient-border">
+                <div class="bg-white rounded-lg p-6 card-hover scroll-reveal">
+                    <h3 class="text-xl font-semibold mb-4 text-sl-green">Rich Culture</h3>
+                    <p class="text-gray-600">Discover ancient temples, traditional festivals, and vibrant local customs.</p>
+                </div>
             </div>
             <!-- Nature -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold mb-4">Natural Beauty</h3>
-                <p class="text-gray-600">Explore pristine beaches, lush rainforests, and stunning mountain landscapes.</p>
+            <div class="gradient-border">
+                <div class="bg-white rounded-lg p-6 card-hover scroll-reveal stagger-2">
+                    <h3 class="text-xl font-semibold mb-4 text-sl-green">Natural Beauty</h3>
+                    <p class="text-gray-600">Explore pristine beaches, lush rainforests, and stunning mountain landscapes.</p>
+                </div>
             </div>
             <!-- Wildlife -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-xl font-semibold mb-4">Wildlife</h3>
-                <p class="text-gray-600">Encounter elephants, leopards, and diverse marine life in their natural habitat.</p>
+            <div class="gradient-border">
+                <div class="bg-white rounded-lg p-6 card-hover scroll-reveal stagger-3">
+                    <h3 class="text-xl font-semibold mb-4 text-sl-green">Wildlife</h3>
+                    <p class="text-gray-600">Encounter elephants, leopards, and diverse marine life in their natural habitat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parallax Section -->
+    <div class="parallax-bg h-96 relative" style="background-image: url('https://source.unsplash.com/1600x900/?srilanka,landscape')">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <h2 class="text-4xl font-bold mb-4 text-shadow scroll-reveal">Experience Paradise</h2>
+                <p class="text-xl mb-8 text-shadow scroll-reveal stagger-1">Your journey to an unforgettable adventure begins here</p>
+                <a href="contact.html" class="button-glow bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300 scroll-reveal stagger-2">
+                    Start Planning
+                </a>
             </div>
         </div>
     </div>
@@ -93,19 +163,19 @@
     <footer class="bg-sl-green text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
+                <div class="scroll-reveal">
                     <h3 class="text-xl font-semibold mb-4">Sri Lanka Travel</h3>
                     <p>Your gateway to experiencing the beauty and culture of Sri Lanka.</p>
                 </div>
-                <div>
+                <div class="scroll-reveal stagger-1">
                     <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="about.html" class="hover:text-gray-300">About Us</a></li>
-                        <li><a href="locations.html" class="hover:text-gray-300">Destinations</a></li>
-                        <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                        <li><a href="about.html" class="hover:text-gray-300 nav-link">About Us</a></li>
+                        <li><a href="locations.html" class="hover:text-gray-300 nav-link">Destinations</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-300 nav-link">Contact</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="scroll-reveal stagger-2">
                     <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
                     <ul class="space-y-2">
                         <li>Email: info@srilankatravel.com</li>
@@ -114,7 +184,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-white text-center">
+            <div class="mt-8 pt-8 border-t border-white text-center scroll-reveal">
                 <p>&copy; 2024 Sri Lanka Travel. All rights reserved.</p>
             </div>
         </div>
