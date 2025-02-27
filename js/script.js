@@ -1,183 +1,100 @@
 // Initialize GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// Three.js Scene Setup with improved error handling and performance
-function initThreeJS() {
-    // Check for WebGL support
-    if (!window.WebGLRenderingContext) {
-        console.error('WebGL is not supported in this browser');
-        fallbackToStatic();
-        return;
+// Hero Image Slider
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const slideNav = document.querySelector('.slide-nav');
+    const prevBtn = document.querySelector('.slide-arrow.prev');
+    const nextBtn = document.querySelector('.slide-arrow.next');
+    let currentSlide = 0;
+    let slideInterval;
+    const slideDelay = 5000; // Change slide every 5 seconds
+
+    // Create navigation dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('slide-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        slideNav.appendChild(dot);
+    });
+
+    function updateDots() {
+        const dots = document.querySelectorAll('.slide-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
     }
 
-    try {
-        const canvas = document.getElementById('hero-canvas');
-        if (!canvas) return;
-
-        // Test WebGL capability
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl) {
-            throw new Error('WebGL is not available.');
-        }
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ 
-            canvas, 
-            alpha: true, 
-            antialias: true,
-            powerPreference: "high-performance"
-        });
-        
-        // Optimize renderer
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Create a sphere geometry with optimized parameters
-        const geometry = new THREE.SphereGeometry(5, 48, 48); // Reduced segment count for better performance
-        const material = new THREE.MeshPhongMaterial({
-            color: 0x2E8B57,
-            wireframe: true,
-            wireframeLinewidth: 0.5,
-            transparent: true,
-            opacity: 0.8
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
-        // Optimized particle system
-        const starsGeometry = new THREE.BufferGeometry();
-        const starsCount = Math.min(2000, window.innerWidth < 768 ? 1000 : 2000); // Reduce particles on mobile
-        const positions = new Float32Array(starsCount * 3);
-
-        for (let i = 0; i < starsCount * 3; i += 3) {
-            positions[i] = (Math.random() - 0.5) * 100;
-            positions[i + 1] = (Math.random() - 0.5) * 100;
-            positions[i + 2] = (Math.random() - 0.5) * 100;
-        }
-
-        starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const starsMaterial = new THREE.PointsMaterial({
-            color: 0xFFFFFF,
-            size: 0.1,
-            transparent: true,
-            opacity: 0.8,
-            sizeAttenuation: true
-        });
-        const stars = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(stars);
-
-        // Optimized lighting
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 5, 5);
-        scene.add(light);
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-        scene.add(ambientLight);
-
-        camera.position.z = 10;
-
-        // Mouse interaction with debouncing
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-        let timeoutId = null;
-
-        document.addEventListener('mousemove', (event) => {
-            if (timeoutId) clearTimeout(timeoutId);
-            
-            timeoutId = setTimeout(() => {
-                mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
-                mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
-            }, 10);
+    function showSlide(index) {
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            gsap.to(slide, {
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.inOut"
+            });
         });
 
-        // Optimized animation loop
-        let animationFrameId;
-        function animate() {
-            animationFrameId = requestAnimationFrame(animate);
+        slides[index].classList.add('active');
+        gsap.to(slides[index], {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.inOut"
+        });
 
-            // Smooth rotation following mouse
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            sphere.rotation.y += 0.003;
-            sphere.rotation.x += 0.001;
-            sphere.rotation.z += targetX * 0.5;
-            
-            stars.rotation.y += 0.0005;
-
-            renderer.render(scene, camera);
-        }
-
-        // Optimized window resize handler with debouncing
-        let resizeTimeoutId;
-        function onWindowResize() {
-            if (resizeTimeoutId) clearTimeout(resizeTimeoutId);
-            
-            resizeTimeoutId = setTimeout(() => {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            }, 100);
-        }
-
-        window.addEventListener('resize', onWindowResize);
-        animate();
-
-        // Cleanup function
-        return () => {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            window.removeEventListener('resize', onWindowResize);
-            
-            // Dispose of Three.js objects
-            geometry.dispose();
-            material.dispose();
-            starsGeometry.dispose();
-            starsMaterial.dispose();
-            renderer.dispose();
-        };
-
-    } catch (error) {
-        console.error('Error initializing Three.js:', error);
-        fallbackToStatic();
+        updateDots();
     }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        showSlide(currentSlide);
+        resetInterval();
+    }
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, slideDelay);
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+    });
+
+    // Start the slideshow
+    slideInterval = setInterval(nextSlide, slideDelay);
+
+    // Pause slideshow on hover
+    const sliderContainer = document.querySelector('.hero-slider');
+    sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    sliderContainer.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(nextSlide, slideDelay);
+    });
 }
 
-// Fallback function for when WebGL is not available
-function fallbackToStatic() {
-    const canvas = document.getElementById('hero-canvas');
-    if (canvas) {
-        canvas.style.display = 'none';
-        
-        // Add a static background image instead
-        const heroSection = canvas.parentElement;
-        if (heroSection) {
-            heroSection.style.backgroundImage = 'url("https://source.unsplash.com/1600x900/?srilanka,landscape")';
-            heroSection.style.backgroundSize = 'cover';
-            heroSection.style.backgroundPosition = 'center';
-        }
-    }
-}
-
-// Initialize Three.js scene when the DOM is loaded
+// Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const cleanup = initThreeJS();
+    initHeroSlider();
     initScrollAnimations();
     initMobileMenu();
-
-    // Cleanup on page unload
-    window.addEventListener('unload', () => {
-        if (cleanup && typeof cleanup === 'function') {
-            cleanup();
-        }
-    });
 });
 
 // Scroll Animations with optimized performance

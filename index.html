@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzJFOEI1NyIgZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLS41IDEzLjVjLS44MjggMC0xLjUtLjY3Mi0xLjUtMS41czAtMyAuNS00YzEtMiAyLTMgMy00IC41LS41IDEuNS0xIDIuNS0xIC41IDAgMSAuMiAxLjUuNS0xIDEtMiAyLTIuNSAzLS41IDEtLjc1IDItLjc1IDMgMCAuODI4LS42NzIgMS41LTEuNSAxLjVoLTJ6Ii8+PC9zdmc+" />
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/slider.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -104,16 +105,58 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Image Slider -->
     <div class="relative h-screen">
-        <canvas id="hero-canvas" class="hero-canvas"></canvas>
-        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1588258147249-acde95d24992?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')">
+                <div class="slide-caption">
+                    <h3 class="text-2xl font-bold mb-2">Sigiriya Rock Fortress</h3>
+                    <p>Ancient palace and fortress complex, a UNESCO World Heritage site</p>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1546708973-b339540b5162?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')">
+                <div class="slide-caption">
+                    <h3 class="text-2xl font-bold mb-2">Mirissa Beach</h3>
+                    <p>Paradise for beach lovers and whale watching enthusiasts</p>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1575986767340-5d17ae767ab0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')">
+                <div class="slide-caption">
+                    <h3 class="text-2xl font-bold mb-2">Tea Plantations</h3>
+                    <p>Rolling hills of emerald tea estates in the central highlands</p>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1590332763476-90472d63f50a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')">
+                <div class="slide-caption">
+                    <h3 class="text-2xl font-bold mb-2">Temple of the Sacred Tooth Relic</h3>
+                    <p>Buddhist temple in Kandy housing Buddha's sacred tooth relic</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-arrows">
+            <div class="slide-arrow prev">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </div>
+            <div class="slide-arrow next">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </div>
+        </div>
+        <div class="slide-nav"></div>
+        <div class="hero-overlay"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
             <div class="text-center">
                 <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 text-shadow animate-fade-slide-up">Discover Sri Lanka</h1>
                 <p class="text-xl md:text-2xl text-white mb-8 animate-fade-slide-up stagger-1">Experience the Pearl of the Indian Ocean</p>
-                <a href="locations.html" class="button-glow bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300 animate-fade-slide-up stagger-2">
-                    Explore Destinations
-                </a>
+                <div class="space-y-4">
+                    <a href="locations.html" class="button-glow bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300 animate-fade-slide-up stagger-2 inline-block">
+                        Explore Destinations
+                    </a>
+                    <p class="text-white text-sm animate-fade-slide-up stagger-3">Best time to visit: December to March</p>
+                </div>
             </div>
         </div>
     </div>
@@ -125,22 +168,37 @@
             <!-- Culture -->
             <div class="gradient-border">
                 <div class="bg-white rounded-lg p-6 card-hover scroll-reveal">
+                    <div class="h-48 mb-4 overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1625736300986-c9d7677f8373?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Temple of the Sacred Tooth Relic" 
+                             class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                    </div>
                     <h3 class="text-xl font-semibold mb-4 text-sl-green">Rich Culture</h3>
-                    <p class="text-gray-600">Discover ancient temples, traditional festivals, and vibrant local customs.</p>
+                    <p class="text-gray-600">Discover ancient temples, traditional festivals, and vibrant local customs. Visit the Temple of the Sacred Tooth Relic in Kandy.</p>
                 </div>
             </div>
             <!-- Nature -->
             <div class="gradient-border">
                 <div class="bg-white rounded-lg p-6 card-hover scroll-reveal stagger-2">
+                    <div class="h-48 mb-4 overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1586033921061-35b4b8c9fed4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Nine Arch Bridge" 
+                             class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                    </div>
                     <h3 class="text-xl font-semibold mb-4 text-sl-green">Natural Beauty</h3>
-                    <p class="text-gray-600">Explore pristine beaches, lush rainforests, and stunning mountain landscapes.</p>
+                    <p class="text-gray-600">Explore pristine beaches, lush rainforests, and stunning mountain landscapes. Visit the famous Nine Arch Bridge in Ella.</p>
                 </div>
             </div>
             <!-- Wildlife -->
             <div class="gradient-border">
                 <div class="bg-white rounded-lg p-6 card-hover scroll-reveal stagger-3">
+                    <div class="h-48 mb-4 overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1589182337358-2cb63099350c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Sri Lankan Elephants" 
+                             class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                    </div>
                     <h3 class="text-xl font-semibold mb-4 text-sl-green">Wildlife</h3>
-                    <p class="text-gray-600">Encounter elephants, leopards, and diverse marine life in their natural habitat.</p>
+                    <p class="text-gray-600">Encounter elephants, leopards, and diverse marine life in their natural habitat. Visit Yala National Park for safari adventures.</p>
                 </div>
             </div>
         </div>
