@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Sri Lanka Travel Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sl-green': '#2E8B57',
+                        'sl-light': '#F5F5F5',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-sl-green w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-white text-xl font-bold">Sri Lanka Travel</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="locations.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
+                        <a href="price.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                        <a href="gallery.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
+                        <a href="contact.html" class="text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="bg-sl-green text-white py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold mb-4">Contact Us</h1>
+            <p class="text-xl">Get in touch with our travel experts</p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div>
+                <h2 class="text-2xl font-bold mb-6">Send us a Message</h2>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sl-green focus:ring-sl-green">
+                        <span id="nameError" class="text-red-500 text-sm hidden">Please enter your name</span>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sl-green focus:ring-sl-green">
+                        <span id="emailError" class="text-red-500 text-sm hidden">Please enter a valid email address</span>
+                    </div>
+
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sl-green focus:ring-sl-green">
+                        <span id="subjectError" class="text-red-500 text-sm hidden">Please enter a subject</span>
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="4" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sl-green focus:ring-sl-green"></textarea>
+                        <span id="messageError" class="text-red-500 text-sm hidden">Please enter your message</span>
+                    </div>
+
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-sl-green text-white px-6 py-3 rounded-md hover:bg-green-700 transition duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                <div id="successMessage" class="mt-4 p-4 bg-green-100 text-green-700 rounded-md hidden">
+                    Thank you for your message! We'll get back to you soon.
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div>
+                <h2 class="text-2xl font-bold mb-6">Contact Information</h2>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Office Address</h3>
+                        <p class="text-gray-600">
+                            123 Temple Road<br>
+                            Colombo 00300<br>
+                            Sri Lanka
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Contact Details</h3>
+                        <p class="text-gray-600">
+                            Phone: +94 11 234 5678<br>
+                            Email: info@srilankatravel.com<br>
+                            Working Hours: 9:00 AM - 6:00 PM (GMT+5:30)
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-sl-green hover:text-green-700">Facebook</a>
+                            <a href="#" class="text-sl-green hover:text-green-700">Twitter</a>
+                            <a href="#" class="text-sl-green hover:text-green-700">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sl-green text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Sri Lanka Travel</h3>
+                    <p>Your gateway to experiencing the beauty and culture of Sri Lanka.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="hover:text-gray-300">About Us</a></li>
+                        <li><a href="locations.html" class="hover:text-gray-300">Destinations</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2">
+                        <li>Email: info@srilankatravel.com</li>
+                        <li>Phone: +94 11 234 5678</li>
+                        <li>Address: Colombo, Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white text-center">
+                <p>&copy; 2024 Sri Lanka Travel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('span[id$="Error"]').forEach(span => span.classList.add('hidden'));
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Validation
+            let isValid = true;
+            
+            if (!name) {
+                document.getElementById('nameError').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+                document.getElementById('emailError').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (!subject) {
+                document.getElementById('subjectError').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (!message) {
+                document.getElementById('messageError').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show success message
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+                // Clear form
+                this.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

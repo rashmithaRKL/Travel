@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Sri Lanka Travel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sl-green': '#2E8B57',
+                        'sl-light': '#F5F5F5',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gallery-item {
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-sl-green w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-white text-xl font-bold">Sri Lanka Travel</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="locations.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
+                        <a href="price.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                        <a href="gallery.html" class="text-white px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
+                        <a href="contact.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="bg-sl-green text-white py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold mb-4">Photo Gallery</h1>
+            <p class="text-xl">Explore the beauty of Sri Lanka through our lens</p>
+        </div>
+    </div>
+
+    <!-- Gallery Filter -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-wrap gap-4 mb-8">
+            <button class="px-4 py-2 bg-sl-green text-white rounded-md">All</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md">Nature</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md">Culture</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md">Wildlife</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md">Beaches</button>
+        </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Gallery Items -->
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?srilanka,temple" alt="Sri Lankan Temple" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?srilanka,beach" alt="Tropical Beach" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?elephant,wildlife" alt="Sri Lankan Elephant" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?tea,plantation" alt="Tea Plantation" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?buddhist,statue" alt="Buddha Statue" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?tropical,waterfall" alt="Waterfall" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?sunset,beach" alt="Beach Sunset" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?traditional,dance" alt="Traditional Dance" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?mountain,landscape" alt="Mountain Landscape" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?ancient,ruins" alt="Ancient Ruins" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?spices,market" alt="Spice Market" class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div class="gallery-item cursor-pointer">
+                <img src="https://source.unsplash.com/800x600/?train,railway" alt="Scenic Railway" class="w-full h-64 object-cover rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="absolute top-4 right-4 text-white text-4xl cursor-pointer" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-content">
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sl-green text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Sri Lanka Travel</h3>
+                    <p>Your gateway to experiencing the beauty and culture of Sri Lanka.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="hover:text-gray-300">About Us</a></li>
+                        <li><a href="locations.html" class="hover:text-gray-300">Destinations</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2">
+                        <li>Email: info@srilankatravel.com</li>
+                        <li>Phone: +94 11 234 5678</li>
+                        <li>Address: Colombo, Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white text-center">
+                <p>&copy; 2024 Sri Lanka Travel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery filter functionality
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('bg-sl-green', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                
+                // Add active class to clicked button
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-sl-green', 'text-white');
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            });
+        });
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

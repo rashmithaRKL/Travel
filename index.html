@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Sri Lanka - Your Ultimate Travel Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sl-green': '#2E8B57',
+                        'sl-light': '#F5F5F5',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-sl-green fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-white text-xl font-bold">Sri Lanka Travel</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="about.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="locations.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Locations</a>
+                        <a href="price.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                        <a href="gallery.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Gallery</a>
+                        <a href="contact.html" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative h-screen">
+        <canvas id="hero-canvas" class="hero-canvas"></canvas>
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Discover Sri Lanka</h1>
+                <p class="text-xl md:text-2xl text-white mb-8">Experience the Pearl of the Indian Ocean</p>
+                <a href="locations.html" class="bg-sl-green text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300">
+                    Explore Destinations
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Sections -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Visit Sri Lanka?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Culture -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Rich Culture</h3>
+                <p class="text-gray-600">Discover ancient temples, traditional festivals, and vibrant local customs.</p>
+            </div>
+            <!-- Nature -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Natural Beauty</h3>
+                <p class="text-gray-600">Explore pristine beaches, lush rainforests, and stunning mountain landscapes.</p>
+            </div>
+            <!-- Wildlife -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Wildlife</h3>
+                <p class="text-gray-600">Encounter elephants, leopards, and diverse marine life in their natural habitat.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sl-green text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Sri Lanka Travel</h3>
+                    <p>Your gateway to experiencing the beauty and culture of Sri Lanka.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="hover:text-gray-300">About Us</a></li>
+                        <li><a href="locations.html" class="hover:text-gray-300">Destinations</a></li>
+                        <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2">
+                        <li>Email: info@srilankatravel.com</li>
+                        <li>Phone: +94 11 234 5678</li>
+                        <li>Address: Colombo, Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white text-center">
+                <p>&copy; 2024 Sri Lanka Travel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
