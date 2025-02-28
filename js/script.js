@@ -1,5 +1,5 @@
-// Initialize GSAP ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
+// Initialize GSAP ScrollTrigger and other plugins
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Hero Image Slider
 function initHeroSlider() {
@@ -9,7 +9,7 @@ function initHeroSlider() {
     const nextBtn = document.querySelector('.slide-arrow.next');
     let currentSlide = 0;
     let slideInterval;
-    const slideDelay = 5000; // Change slide every 5 seconds
+    const slideDelay = 5000;
 
     // Create navigation dots
     slides.forEach((_, index) => {
@@ -90,57 +90,69 @@ function initHeroSlider() {
     });
 }
 
-// Initialize everything when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initHeroSlider();
-    initScrollAnimations();
-    initMobileMenu();
-});
-
-// Scroll Animations with optimized performance
+// Enhanced Scroll Animations
 function initScrollAnimations() {
-    // Batch similar animations together
+    // Scroll reveal animations with enhanced effects
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
     scrollRevealElements.forEach((element, index) => {
         gsap.from(element, {
             scrollTrigger: {
                 trigger: element,
-                start: "top 80%",
-                end: "bottom 20%",
+                start: "top 85%",
+                end: "bottom 15%",
                 toggleActions: "play none none reverse"
             },
-            y: 50,
+            y: 100,
             opacity: 0,
-            duration: 1,
-            delay: index * 0.2,
-            ease: "power3.out"
+            rotation: 5,
+            scale: 0.9,
+            duration: 1.2,
+            delay: index * 0.15,
+            ease: "power4.out"
         });
     });
 
-    // Optimize parallax effect
-    const parallaxBgs = document.querySelectorAll('.parallax-bg');
-    parallaxBgs.forEach(bg => {
+    // Floating animation for headings
+    gsap.to('.animate-float', {
+        y: -20,
+        rotation: 1,
+        duration: 2,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1
+    });
+
+    // Enhanced parallax effect
+    gsap.utils.toArray('.parallax-bg').forEach(bg => {
         gsap.to(bg, {
             scrollTrigger: {
                 trigger: bg,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true
+                scrub: 1
             },
-            y: 100,
+            y: 200,
+            scale: 1.1,
             ease: "none"
         });
     });
 
-    // Optimize card hover animations
-    const cards = document.querySelectorAll('.card-hover');
-    cards.forEach(card => {
+    // Interactive hover animations
+    const hoverElements = {
+        cards: document.querySelectorAll('.card-hover'),
+        glassEffects: document.querySelectorAll('.glass-effect')
+    };
+
+    // Card hover animations
+    hoverElements.cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
-                y: -10,
+                y: -15,
                 scale: 1.02,
-                duration: 0.3,
-                ease: "power2.out"
+                rotationX: 5,
+                duration: 0.4,
+                ease: "power2.out",
+                boxShadow: "0 20px 40px rgba(46, 139, 87, 0.2)"
             });
         });
 
@@ -148,14 +160,37 @@ function initScrollAnimations() {
             gsap.to(card, {
                 y: 0,
                 scale: 1,
+                rotationX: 0,
+                duration: 0.4,
+                ease: "power2.in",
+                boxShadow: "none"
+            });
+        });
+    });
+
+    // Glass effect hover animations
+    hoverElements.glassEffects.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            gsap.to(element, {
+                scale: 1.05,
                 duration: 0.3,
-                ease: "power2.out"
+                ease: "power2.out",
+                backgroundColor: "rgba(255, 255, 255, 0.15)"
+            });
+        });
+
+        element.addEventListener('mouseleave', () => {
+            gsap.to(element, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.in",
+                backgroundColor: "rgba(255, 255, 255, 0.1)"
             });
         });
     });
 }
 
-// Mobile Navigation Toggle with improved animation
+// Mobile Navigation
 function initMobileMenu() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -197,7 +232,14 @@ function initMobileMenu() {
     }
 }
 
-// Smooth scroll to sections with improved performance
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initHeroSlider();
+    initScrollAnimations();
+    initMobileMenu();
+});
+
+// Smooth scroll to sections
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
