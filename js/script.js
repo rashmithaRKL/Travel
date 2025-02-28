@@ -69,12 +69,12 @@ function initHeroSlider() {
     }
 
     // Event listeners
-    prevBtn.addEventListener('click', () => {
+    prevBtn?.addEventListener('click', () => {
         prevSlide();
         resetInterval();
     });
 
-    nextBtn.addEventListener('click', () => {
+    nextBtn?.addEventListener('click', () => {
         nextSlide();
         resetInterval();
     });
@@ -84,15 +84,36 @@ function initHeroSlider() {
 
     // Pause slideshow on hover
     const sliderContainer = document.querySelector('.hero-slider');
-    sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    sliderContainer.addEventListener('mouseleave', () => {
+    sliderContainer?.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    sliderContainer?.addEventListener('mouseleave', () => {
         slideInterval = setInterval(nextSlide, slideDelay);
+    });
+}
+
+// Initialize counter animation
+function initCounters() {
+    const counters = document.querySelectorAll('.counter');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        
+        gsap.to(counter, {
+            scrollTrigger: {
+                trigger: counter,
+                start: "top 80%",
+                once: true
+            },
+            innerHTML: target,
+            duration: 2,
+            snap: { innerHTML: 1 },
+            ease: "power2.out"
+        });
     });
 }
 
 // Enhanced Scroll Animations
 function initScrollAnimations() {
-    // Scroll reveal animations with enhanced effects
+    // Scroll reveal animations with 3D effects
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
     scrollRevealElements.forEach((element, index) => {
         gsap.from(element, {
@@ -122,7 +143,7 @@ function initScrollAnimations() {
         repeat: -1
     });
 
-    // Enhanced parallax effect
+    // Enhanced parallax effect with scale
     gsap.utils.toArray('.parallax-bg').forEach(bg => {
         gsap.to(bg, {
             scrollTrigger: {
@@ -138,13 +159,11 @@ function initScrollAnimations() {
     });
 
     // Interactive hover animations
-    const hoverElements = {
-        cards: document.querySelectorAll('.card-hover'),
-        glassEffects: document.querySelectorAll('.glass-effect')
-    };
+    const cards = document.querySelectorAll('.card-hover');
+    const glassElements = document.querySelectorAll('.glass-effect');
 
-    // Card hover animations
-    hoverElements.cards.forEach(card => {
+    // Card hover animations with 3D effect
+    cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
                 y: -15,
@@ -169,7 +188,7 @@ function initScrollAnimations() {
     });
 
     // Glass effect hover animations
-    hoverElements.glassEffects.forEach(element => {
+    glassElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
             gsap.to(element, {
                 scale: 1.05,
@@ -190,7 +209,7 @@ function initScrollAnimations() {
     });
 }
 
-// Mobile Navigation
+// Mobile Navigation with enhanced animations
 function initMobileMenu() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -237,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroSlider();
     initScrollAnimations();
     initMobileMenu();
+    initCounters();
 });
 
 // Smooth scroll to sections
